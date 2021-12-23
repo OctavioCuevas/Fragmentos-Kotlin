@@ -1,62 +1,55 @@
-/*
-* Hacer un programa con entrada de inforación (teclado) ocupando lo siguiente
-* Funciones
-* Ciclo (do while)
-* Imprimir algun dato
-* Agregar información
-* */
 class Animal(
     var name: String = "",
     var sex: String = "",
     var color: String = "",
     var size: String = ""
 ) {
-    public fun printAnimal() {
+    fun printAnimal() {
         println("El nombre es: $name")
         println("El sexo es: $sex")
         println("El color es: $color")
-        println("El tamaño es: $size")
+        println("El tamaño es: $size\n")
     }
 }
 
 var listAnimals: MutableList<Animal> = mutableListOf()
 
 fun main() {
-    var repeat: String = "S"
+    var repeat: String
     do {
-        repeat = get_menu()
+        repeat = getMenu()
     } while (repeat.uppercase() == "S")
 }
 
-fun get_menu(): String {
-    println("Selecciona una opcion\n1)Ingresa un animal nuevo\n2)Muestra los animales existentes\n3)Eliminar animal\n4)Salir\n")
+fun getMenu(): String {
+    println("Selecciona una opción\n1)Ingresa un animal nuevo\n2)Muestra los animales existentes\n3)Eliminar animal\n4)Salir\n")
     val option = readln().toInt()
-    var result: String = "S"
+    var result = "S"
     when (option) {
-        1 -> get_atributes()
-        2 -> get_animals(true)
-        3 -> remove_animal()
+        1 -> getAttributes()
+        2 -> getAnimals(true)
+        3 -> removeAnimal()
         4 -> result = "N"
-        else -> println("Opcion incorrecta")
+        else -> println("Opción incorrecta")
     }
     return result
 }
 
-fun get_atributes() {
+fun getAttributes() {
     println("Ingresa el nombre del animal")
-    val u_name = readLine().toString()
+    val uName = readLine().toString()
     println("Ingresa el sexo del animal\na) Macho \nb) Hembra")
-    val u_sex = readLine().toString()
+    val uSex = readLine().toString()
     println("Ingresa el color")
-    val u_color = readLine().toString()
+    val uColor = readLine().toString()
     println("Ingresa el tamaño\na) Grande\nb)Mediano\nc)Chico")
-    val u_size = readLine().toString()
+    val uSize = readLine().toString()
 
     val animal = Animal().apply {
-        name = u_name
-        sex = u_sex
-        color = u_color
-        size = u_size
+        name = uName
+        sex = uSex
+        color = uColor
+        size = uSize
     }.also {
         when (it.sex) {
             "a" -> it.sex = "Macho"
@@ -70,11 +63,11 @@ fun get_atributes() {
             else -> it.size = "Desconocido"
         }
         listAnimals.add(it)
-        println("Se agrego el animal ${it.name}")
     }
+    println("Se agrego el animal ${animal.name}")
 }
 
-fun get_animals(all:Boolean) {
+fun getAnimals(all: Boolean) {
     for (animal in listAnimals) {
         if (all) {
             animal.printAnimal()
@@ -84,14 +77,14 @@ fun get_animals(all:Boolean) {
     }
 }
 
-fun remove_animal() {
+fun removeAnimal() {
     println("Ingresa el nombre del animal a eliminar:")
-    get_animals(false)
-    val u_name = readLine().toString()
+    getAnimals(false)
+    val uName = readLine().toString()
     for (animal in listAnimals) {
-        if (animal.name == u_name) {
+        if (animal.name == uName) {
             listAnimals.remove(animal)
-            println("Se elimino $u_name")
+            println("Se elimino $uName")
         }
     }
 }
